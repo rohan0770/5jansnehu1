@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💘 Love Quiz 💘</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 50px;
+      overflow: hidden;
+    }
+    h1 { color: #ff4081; }
+    .question { margin: 20px 0; font-size: 20px; }
+    input { padding: 8px; border-radius: 8px; border: 2px solid pink; width: 200px; }
+    button { margin: 10px; padding: 10px 20px; background: hotpink; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; }
+    #result { margin-top: 30px; font-size: 24px; color: green; font-weight: bold; }
+    #nextLevel { display: none; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h1>💌 Love Quiz for My snehu 💌</h1>
+
+<div class="quiz">
+  <div class="question">
+    1. What about us feels most like home to you ?  
+    a. quiet talks b.hugs c.routines d.laughing
+    <input type="text" id="q1" placeholder="tell me">
+  </div>
+  <div class="question">
+    2. which part of our story do u love telling the most?
+    a.how we met b.first date c.inside jokes d.random moments  
+    <input type="text" id="q2" placeholder=" tell me😘">
+  </div>
+  <div class="question">
+    3. what part of us still feels like the early days ?
+    a. butterflies b.nonstop texting c. playful flirting d.late night talks
+    <input type="text" id="q3" placeholder="tell me">
+  </div>
+</div>
+
+<button onclick="checkAnswers()">Submit Answers</button>
+
+<p id="result"></p>
+<!-- Next Level button -->
+<button id="nextLevel" onclick="goToLevel4()">Next Surprise ➡️</button>
+
+<script>
+function checkAnswers() {
+  let score = 0;
+
+  // 🔑 Change answers to your real ones
+  if (document.getElementById("q1").value.trim().toLowerCase() === "routines") score++;
+  if (document.getElementById("q2").value.trim().toLowerCase() === "how we met") score++;
+  if (document.getElementById("q3").value.trim().toLowerCase() === "nonstop texting") score++;
+
+  if (score === 3) {
+    document.getElementById("result").innerHTML =
+      "🎉 Yayyy! Happy Birthday my love ❤️ You know us perfectly! 🎉";
+    document.getElementById("nextLevel").style.display = "inline-block"; // show button
+    startHearts();
+  } else {
+    document.getElementById("result").innerHTML =
+      "Oops 😅 try again meri snehu!";
+  }
+}
+
+// Hearts floating from top to bottom
+function startHearts() {
+  function createHeart() {
+    let heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.style.position = "fixed";
+    heart.style.top = "-50px";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = 20 + Math.random() * 30 + "px";
+    heart.style.opacity = Math.random();
+    document.body.appendChild(heart);
+
+    let fall = heart.animate([
+      { transform: `translateY(0px)` },
+      { transform: `translateY(${window.innerHeight + 50}px)` }
+    ], {
+      duration: 3000 + Math.random() * 2000,
+      iterations: 1
+    });
+
+    fall.onfinish = () => heart.remove();
+  }
+
+  let interval = setInterval(() => {
+    for (let i = 0; i < 5; i++) createHeart();
+  }, 200);
+
+  setTimeout(() => clearInterval(interval), 5000);
+}
+
+// Go to Level 4
+function goToLevel4() {
+  window.location.href = "level4.html";
+}
+</script>
+
+</body>
+</html>

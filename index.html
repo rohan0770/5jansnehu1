@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Birthday Surprise 💖</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    input {
+      padding: 10px;
+      border: 2px solid pink;
+      border-radius: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      background: hotpink;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>🎂 Welcome My Love 🎂</h2>
+    <p>Enter the secret code ❤️</p>
+    <input type="password" id="passkey" placeholder="Your secret...">
+    <br>
+    <button onclick="checkPass()">Unlock</button>
+    <p class="message" id="msg"></p>
+  </div>
+
+  <script>
+    function checkPass() {
+      let key = document.getElementById("passkey").value;
+      let secret = "penguin"; // 🔑 Change this to your secret passcode
+      if (key === secret) {
+        window.location.href = "level2.html"; // Go to next page
+      } else {
+        document.getElementById("msg").innerText =
+          "Arre snehu 💕 wrong code! Try again 😘";
+      }
+    }
+  </script>
+
+</body>
+</html>

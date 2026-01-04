@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Happy Birthday 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive;
+    }
+    h1 {
+      font-size: 50px;
+      color: white;
+      text-shadow: 2px 2px 5px #ff69b4;
+    }
+    p {
+      font-size: 22px;
+      color: #fff;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 80px;
+      height: 100px;
+      background: pink;
+      border-radius: 50% 50% 50% 50%;
+      animation: float 6s infinite ease-in;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+    button {
+      padding:15px 25px;
+      font-size:18px;
+      background: hotpink;
+      color: white;
+      border:none;
+      border-radius:15px;
+      cursor:pointer;
+      margin-top:30px;
+    }
+  </style>
+</head>
+<body>
+
+    
+    <h1>🎂 Happy Birthday snehu 🎂 </h1>
+  <p>You make my world magical ✨</p>
+
+  <!-- 🎯 New button for next level -->
+  <button onclick="nextLevel()">Next Surprise ➡️</button>
+
+  <script>
+    function createBalloon() {
+      let balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * window.innerWidth + "px";
+      balloon.style.background = `hsl(${Math.random()*360}, 70%, 70%)`;
+      document.body.appendChild(balloon);
+
+      setTimeout(() => balloon.remove(), 6000);
+    }
+    setInterval(createBalloon, 200);
+
+    // 🎯 Function for next level
+    function nextLevel() {
+      window.location.href = "level3.html";
+    }
+  </script>
+
+</body>
+</html>
+     

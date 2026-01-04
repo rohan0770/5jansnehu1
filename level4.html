@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Birthday Surprise 💖</title>
+<style>
+body {
+  margin:0;
+  font-family:'Comic Sans MS', cursive;
+  text-align:center;
+  overflow-x:hidden;
+}
+#gameArea, #level5 { min-height:100vh; padding:20px; box-sizing:border-box; }
+#level5 { display:none; background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.heart { position:absolute; font-size:30px; top:-50px; }
+#basket { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:50px; }
+#scoreBoard { position:absolute; top:20px; left:50%; transform:translateX(-50%); font-size:24px; color:white; text-shadow:1px 1px 3px #000; }
+#endMessage { position:absolute; top:40%; width:100%; font-size:36px; color:white; display:none; text-shadow:2px 2px 5px #ff69b4; }
+#endMessage button { margin-top: 20px; padding: 10px 20px; font-size: 20px; border:none; border-radius:10px; background:hotpink; color:white; cursor:pointer; }
+
+#options button {
+  display:block; margin:10px auto; padding:12px 25px;
+  border-radius:10px; background:hotpink; color:white; border:none; cursor:pointer;
+  font-size:16px; transition: transform 0.2s, box-shadow 0.2s;
+}
+#options button:hover { transform:scale(1.1); }
+#finalMessage { display:none; font-size:18px; color:white; text-shadow:2px 2px 5px #ff69b4; margin-top:30px; max-width:700px; margin-left:auto; margin-right:auto; line-height:1.6; }
+#wrongMessage { display:none; font-size:20px; color:red; margin-top:20px; }
+
+.floatingHeart { font-size:40px; animation: float 2s infinite ease-in-out; }
+@keyframes float { 0% { transform:translateY(0); } 50% { transform:translateY(-15px); } 100% { transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- LEVEL 4 -->
+<div id="gameArea">
+  <div id="scoreBoard">Score: 0</div>
+  <div id="basket">🧺</div>
+  <div id="endMessage">
+    🎉 You caught all my love! ❤️
+    <br><br>
+    <button onclick="goToLevel5()">Go to Level 5 ➡️</button>
+  </div>
+</div>
+
+<!-- LEVEL 5 -->
+<div id="level5">
+  <h1>For u my snehu 💖</h1>
+  <p id="scenario"></p>
+  <div id="options"></div>
+  <div id="wrongMessage">❌ Some answers were wrong! Try again from the beginning. meri snehu ❌</div>
+  <div id="finalMessage">
+    🎉 Happy Birthday snehu 💖🎂
+    <p>A Heartfelt Birthday Letter for Snehu 🎂🕯️
+"Happy Birthday to the girl who owns my entire heart, my Snehu. 🎂🥺 Today isn't just a celebration of the day you were born; it’s a celebration of the day the world became a better place, and the day my life finally found its meaning.
+I love you so much that my heart aches trying to find the right words. I honestly don’t know if I can finish this because no language on earth is deep enough to explain my love for you. I thank God every single night for bringing you to me. 🕊️ Snehu, you are my other half, my literal soul. Without you, I would be lost in the dark. You are the light that keeps me on the right track, and you have stood by me through my absolute worst. 🛡️ You are my entire world, and the thought of losing you is the only thing that scares me. Please know this: you are the only one for me. You will never have to doubt my loyalty, because my heart doesn't even know how to beat for anyone else. 💍
+Baby, thank you for loving me when I didn't even love myself. Thank you for being the reason I smile when everything else is falling apart. 😊 My heart still skips a beat every time I see your name on my phone screen. 📱✨ You are my first thought in the morning and my last prayer at night. I tell you I love you every day, but I hope today you can feel it in your soul—my love for you is infinite. ❤️‍🔥
+I know I’m not the best man, and I know I have my flaws, but I promise to spend the rest of my life trying to be worthy of you. I wish I could just hold you under the stars right now and stay there forever, where the rest of the world doesn't exist. 🌌✨ No fight, no distance, and no pain could ever break what we have. You aren't just my girlfriend; you are my best friend, my home, and my peace. 💓
+I am so deeply sorry, baby, for the times I’ve been silly or made you worry. 🥺 It breaks my heart to know I ever caused you a moment of sadness. On your birthday, I give you my word: I will keep growing, keep learning, and keep trying to be the man you deserve. 🙏✨
+I love you, Snehu. My little star, my future wife, my queen. 👑 You are my sea, my night, my soulmate, and my everything. 🌎 I loved you yesterday, I love you more today, and I will love you through every breath I take for the rest of my life. Happy Birthday, my everything. 🎈🎁♾️❤️"
+    </p>
+    <div class="floatingHeart">❤️</div>
+  </div>
+</div>
+
+<script>
+// ---------- LEVEL 4 ----------
+const basket = document.getElementById('basket');
+const gameArea = document.getElementById('gameArea');
+const scoreBoard = document.getElementById('scoreBoard');
+const endMessage = document.getElementById('endMessage');
+let hearts=[], score=0, gameTime=20;
+
+document.addEventListener('mousemove', e => {
+  basket.style.left = e.clientX - basket.offsetWidth/2 + 'px';
+});
+
+function createHeart(){
+  let heart = document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='❤️';
+  heart.style.left=Math.random()*(window.innerWidth-30)+'px';
+  gameArea.appendChild(heart);
+  hearts.push(heart);
+}
+
+function moveHearts(){
+  hearts.forEach((heart,index)=>{
+    let top=parseInt(heart.style.top||-50);
+    heart.style.top=top+4+'px';
+    let basketRect=basket.getBoundingClientRect();
+    let heartRect=heart.getBoundingClientRect();
+    if(!(heartRect.right<basketRect.left || heartRect.left>basketRect.right || heartRect.bottom<basketRect.top || heartRect.top>basketRect.bottom)){
+      score++; scoreBoard.innerText='Score: '+score;
+      heart.remove(); hearts.splice(index,1);
+    }
+    if(top>window.innerHeight){ heart.remove(); hearts.splice(index,1); }
+  });
+  requestAnimationFrame(moveHearts);
+}
+
+let heartInterval=setInterval(createHeart,500);
+moveHearts();
+setTimeout(()=>{
+  clearInterval(heartInterval); hearts.forEach(h=>h.remove()); endMessage.style.display='block';
+}, gameTime*1000);
+
+function goToLevel5(){
+  document.getElementById('gameArea').style.display='none';
+  document.getElementById('level5').style.display='block';
+}
+
+// ---------- LEVEL 5 ----------
+const questions = [
+  {
+    text: "how would you describe the way i made you feel the first time we met ?",
+    options: ["instantly calm ", "nervous excited", "curious", "vague"],
+    answer: "nervous excited"
+  },
+  {
+    text: "what is a little move i make that totally gets your heart racing",
+    options: ["eye contact", "smile ", "teasing tone", "soft touch"],
+    answer: "eye contact"
+  },
+  
+];
+
+let current = 0;
+let correctCount = 0;
+
+function loadQuestion() {
+  if(current >= questions.length) {
+    if(correctCount === questions.length){
+      document.getElementById('scenario').style.display = "none";
+      document.getElementById('options').style.display = "none";
+      document.getElementById('finalMessage').style.display = "block";
+    } else {
+      document.getElementById('scenario').style.display = "none";
+      document.getElementById('options').style.display = "none";
+      document.getElementById('wrongMessage').style.display = "block";
+    }
+    return;
+  }
+
+  const q = questions[current];
+  document.getElementById('scenario').innerText = q.text;
+
+  const optionsDiv = document.getElementById('options');
+  optionsDiv.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.innerText = opt;
+    btn.onclick = () => {
+      if(opt === q.answer) correctCount++;
+      current++;
+      loadQuestion();
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+// Start Level 5 quiz
+loadQuestion();
+</script>
+
+</body>
+</html>
